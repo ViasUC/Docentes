@@ -1,0 +1,14 @@
+.dashboard {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+button {
+  margin-top: 2rem;
+  padding: .5rem 1rem;
+  border: none;
+  background-color: #c62828;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}

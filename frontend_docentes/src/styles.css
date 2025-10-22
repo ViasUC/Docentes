@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+/* 🎨 Estilos globales de la app */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #96b5e7; /* fondo suave gris-azulado */
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  color: #333; /* texto principal */
+}
+
+/* 🔸 Asegura que todos los contenedores usen box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 🔹 Botones globales (opcional, podés cambiar colores) */
+button {
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+/* 🔹 Títulos */
+h1, h2, h3 {
+  font-weight: 600;
+  color: #222;
+}
