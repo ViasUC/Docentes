@@ -62,3 +62,40 @@
   text-align: center;
 }
 
+/* === Sección de botones principales === */
+.menu-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+/* Botones de acción */
+.action-btn {
+  flex: 1 1 250px;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.action-btn:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.03);
+}
+
+.action-btn.logout {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.action-btn.logout:hover {
+  background-color: #e14d4d;
+}
