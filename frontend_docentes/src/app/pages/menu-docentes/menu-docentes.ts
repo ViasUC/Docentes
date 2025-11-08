@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-menu-docentes',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './menu-docentes.html',
-  styleUrl: './menu-docentes.css'
+  styleUrls: ['./menu-docentes.css']
 })
 export class MenuDocentesComponent {
   userEmail: string | null = null;

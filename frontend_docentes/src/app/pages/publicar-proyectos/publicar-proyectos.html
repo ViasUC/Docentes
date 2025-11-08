@@ -1,0 +1,32 @@
+<!-- Top bar -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/menu">Inicio</button>
+  <button class="nav-btn active" routerLink="/publicar-proyectos">Publicar Proyecto</button>
+  <div class="nav-username">NOMBRE USUARIO PROFESOR/INVESTIGADOR</div>
+  <button class="nav-btn" routerLink="/menu">Ofrecer Mentoría</button>
+  <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
+</nav>
+
+<!-- Card -->
+<section class="card">
+  <h2>Título</h2>
+  <input class="txt" type="text" [formControl]="form.controls.titulo"/>
+
+  <h2>Objetivos</h2>
+  <input class="txt" type="text" [formControl]="form.controls.objetivos"/>
+
+  <h2>Requisitos</h2>
+  <textarea class="area" rows="6" [formControl]="form.controls.requisitos"></textarea>
+
+  <h2>Fecha</h2>
+  <div class="date">
+    <input class="chip" placeholder="dd" maxlength="2" [formControl]="form.controls.dd">
+    <input class="chip" placeholder="mm" maxlength="2" [formControl]="form.controls.mm">
+    <input class="chip" placeholder="yy" maxlength="2" [formControl]="form.controls.yy">
+  </div>
+
+  <div class="actions">
+    <button class="btn ghost" (click)="cancelar()">Cancelar</button>
+    <button class="btn primary" (click)="publicar()">Publicar</button>
+  </div>
+</section>
