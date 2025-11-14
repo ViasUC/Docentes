@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ObtenerOportunidadesService {
 
-  private readonly API_URL = '/graphql';  // Usando el proxy
+  private readonly API_URL = '/graphql';
 
   constructor(private http: HttpClient) {}
 
-  listarOportunidades(): Observable<any> {
-    const query = {
+  listarOportunidades() {
+    return this.http.post(this.API_URL, {
       query: `
         query listarOportunidades {
           oportunidades {
@@ -23,8 +22,6 @@ export class ObtenerOportunidadesService {
           }
         }
       `
-    };
-
-    return this.http.post(this.API_URL, query);
+    });
   }
 }

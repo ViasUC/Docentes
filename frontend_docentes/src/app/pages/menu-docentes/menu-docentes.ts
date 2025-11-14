@@ -1,9 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { ObtenerOportunidadesService } from '../../services/services/obtener-oportunidades';
+import { Router } from '@angular/router';
+import { ObtenerOportunidadesService } from '../../services/obtener-oportunidades.service';
 
 @Component({
   selector: 'app-menu-docentes',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './menu-docentes.html',
   styleUrls: ['./menu-docentes.css']
 })
