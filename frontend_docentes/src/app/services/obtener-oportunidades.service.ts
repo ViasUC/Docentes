@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,7 @@ export class ObtenerOportunidadesService {
 
   constructor(private http: HttpClient) {}
 
-  // 👉 SOLO oportunidades del creador (sin tocar el backend)
-  listarOportunidadesPorCreador(idUsuario: number): Observable<any> {
-
+  listarActivasPorCreador(idUsuario: number): Observable<any> {
     const query = `
       query {
         oportunidadesPorCreador(creadorId: ${idUsuario}) {
@@ -31,8 +30,27 @@ export class ObtenerOportunidadesService {
       }
     `;
 
-    const body = { query };
+    return this.http.post(this.API_URL, { query }).pipe(
+      map((res: any) =>
+        (res.data?.oportunidadesPorCreador ?? [])//.filter((o: any) => o.estado === 'activo')
+      )
+    );
+  }
 
-    return this.http.post(this.API_URL, body);
+  listarTodasPorCreador(id: number) {
+    const query = `
+      query {
+        oportunidadesPorCreador(creadorId: ${id}) {
+          idOportunidad
+          titulo
+          estado
+          fechaPublicacion
+        }
+      }
+    `;
+
+    return this.http.post(this.API_URL, { query }).pipe(
+      map((res: any) => res.data?.oportunidadesPorCreador ?? [])
+    );
   }
 }

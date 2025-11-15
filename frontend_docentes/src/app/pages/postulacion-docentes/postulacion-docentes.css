@@ -186,17 +186,12 @@
   .tag{justify-self:start}
 }
 
-.filtro-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 0.5rem;
-}
 
-.filtro-container select {
-  padding: 6px 12px;
+.estado {
+  padding: 4px 8px;
+  background: #a7e8a7;
+  color: #000;
+  font-weight: 600;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  text-align: center;
 }

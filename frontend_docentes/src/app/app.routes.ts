@@ -20,4 +20,12 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MenuDocentesComponent },
   { path: 'publicar-proyectos', component: PublicarProyectosComponent },
+  {
+    path: 'postulaciones',
+    loadComponent: () =>
+      import('./pages/postulacion-docentes/postulacion-docentes')
+      .then(m => m.PostulacionesDocenteComponent)
+
+
+  }
 ];

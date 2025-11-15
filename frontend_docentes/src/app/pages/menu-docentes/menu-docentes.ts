@@ -17,7 +17,10 @@ export class MenuDocentesComponent implements OnInit {
 
   usuario: any = null;
   oportunidades: any[] = [];
+  oportunidadesOriginal: any[] = [];     // 👈 SE AGREGA
   nombreCompleto = '';
+
+  estadoFiltro: string = 'todos';        // 👈 SE AGREGA
 
   loading = true;
   error: any = null;
@@ -61,21 +64,37 @@ export class MenuDocentesComponent implements OnInit {
     const id = Number(this.usuario.idUsuario);
     console.log('ID usuario logueado:', id);
 
-    this.obtener.listarOportunidadesPorCreador(id).subscribe({
-      next: (res: any) => {
-        console.log('RESPUESTA OPORTUNIDADES:', res);
-        const lista = res?.data?.oportunidadesPorCreador ?? [];
+    // 🔥 MÉTODO NUEVO: ahora obtenés TODAS para poder filtrar
+    this.obtener.listarTodasPorCreador(id)
+      .subscribe({
+        next: (lista: any[]) => {
+          this.oportunidadesOriginal = lista;  // 👈 Guardamos copia
+          this.aplicarFiltroEstado();          // 👈 Mostramos según filtro
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.error = err;
+          this.loading = false;
+        }
+      });
+  }
 
-        this.oportunidades = lista.filter((o: any) => o.estado === 'activo');
+  // 🔥 MÉTODO DE FILTRO POR ESTADO
+  aplicarFiltroEstado() {
+    if (this.estadoFiltro === 'todos') {
+      this.oportunidades = this.oportunidadesOriginal;
+    } else {
+      this.oportunidades = this.oportunidadesOriginal.filter(
+        o => o.estado?.toLowerCase() === this.estadoFiltro.toLowerCase()
+      );
+    }
+  }
 
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error obteniendo oportunidades', err);
-        this.error = err;
-        this.loading = false;
-      }
-    });
+  // 🔥 EVENTO DEL SELECT EN EL HTML
+  onEstadoChange(valor: string) {
+    this.estadoFiltro = valor;
+    this.aplicarFiltroEstado();
   }
 
   // 🔥 NUEVO MÉTODO PARA MOSTRAR MODAL

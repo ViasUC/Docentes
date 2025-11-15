@@ -9,7 +9,7 @@
 
 <!-- Sección de botones principales -->
 <div class="menu-actions">
-  <button class="action-btn">Postulaciones</button>
+  <button class="action-btn" routerLink="/postulaciones">Postulaciones</button>
   <button class="action-btn">Mensajería</button>
   <button class="action-btn">Calificaciones</button>
   <button class="action-btn">Gestión de Portafolios</button>
@@ -25,6 +25,17 @@
   <h2>Oportunidades Disponibles</h2>
 
   <!--<p>Length: {{ oportunidades.length }}</p> -->
+  <div class="filtro-container">
+    <label for="filtroEstado"><strong>Filtrar por estado:</strong></label>
+    <select id="filtroEstado" (change)="onEstadoChange($any($event.target).value)">
+      <option value="todos">Todos</option>
+      <option value="activo">Activo</option>
+      <option value="borrador">Borrador</option>
+      <option value="pausado">Pausado</option>
+      <option value="cerrado">Cerrado</option>
+    </select>
+  </div>
+
 
   <div class="table-head">
     <span>Título</span>
