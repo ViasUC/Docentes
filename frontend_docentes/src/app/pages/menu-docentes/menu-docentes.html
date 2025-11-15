@@ -2,7 +2,7 @@
 <nav class="navbar">
   <button class="nav-btn active" routerLink="/menu">Inicio</button>
   <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
-  <div class="nav-username">NOMBRE USUARIO PROFESOR/INVESTIGADOR</div>
+  <div class="nav-username">{{ nombreCompleto }}</div>
   <button class="nav-btn" routerLink="/menu">Ofrecer Mentoría</button>
   <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
 </nav>
@@ -24,13 +24,13 @@
 <section class="activities-card">
   <h2>Oportunidades Disponibles</h2>
 
-  <p>Length: {{ oportunidades.length }}</p>
+  <!--<p>Length: {{ oportunidades.length }}</p> -->
 
   <div class="table-head">
-    <span>ID</span>
     <span>Título</span>
     <span>Estado</span>
     <span>Fecha de Publicación</span>
+    <span>Mas Detalles</span>
   </div>
 
   <div class="rows">
@@ -39,10 +39,18 @@
 
     <!-- acá está el *ngFor importante -->
     <article *ngFor="let o of oportunidades" class="row">
-      <div class="col strong">{{ o.idOportunidad }}</div>
       <div class="col">{{ o.titulo }}</div>
       <div class="col">{{ o.estado }}</div>
-      <div class="col">{{ o.fechaPublicacion }}</div>
+      <div class="col">{{ o.fechaPublicacion | date:'yyyy-MM-dd' }}</div>
+      <div class="col strong">
+        <button class="view-btn" (click)="verDetalles(o)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M12 5c-7.633 0-11 7-11 7s3.367 7 11 7 11-7 11-7-3.367-7-11-7zm0 12c-2.761 0-5-2.239-5-5
+                    s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 1 0 0 6
+                    3 3 0 0 0 0-6z"/>
+          </svg>
+        </button>
+      </div>
     </article>
 
     <!-- mensaje si no hay datos -->
@@ -50,5 +58,11 @@
       No hay oportunidades disponibles.
     </div>
   </div>
+
+  <app-oportunidad-detalle
+    [visible]="modalVisible"
+    [oportunidad]="detalleOportunidad"
+    [postulaciones]="detallePostulaciones">
+  </app-oportunidad-detalle>
 </section>
 

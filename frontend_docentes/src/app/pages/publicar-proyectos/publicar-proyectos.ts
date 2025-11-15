@@ -10,7 +10,9 @@ import { RouterLink, Router } from '@angular/router';
   styleUrls: ['./publicar-proyectos.css']
 })
 export class PublicarProyectosComponent {
-  form;
+   form;
+    usuario: any = null;
+    nombreCompleto = '';
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
@@ -21,6 +23,20 @@ export class PublicarProyectosComponent {
       mm: [''],
       yy: ['']
     });
+  }
+
+  ngOnInit(): void {
+    this.usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+
+    if (this.usuario) {
+      const rol = this.usuario.rolPrincipal === 'profesor'
+        ? 'Prof.'
+        : this.usuario.rolPrincipal === 'investigador'
+          ? 'Inv.'
+          : '';
+
+      this.nombreCompleto = `${rol} ${this.usuario.nombre} ${this.usuario.apellido}`;
+    }
   }
 
   cancelar() {

@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,10 @@ export class LoginComponent {
   loading = false;
   errorMessage = '';
 
-  constructor(private router: Router) {}
+  constructor(
+  private router: Router,
+  private loginService: LoginService
+) {}
 
   // Simula un login local sin backend
   onLogin() {
@@ -31,19 +36,30 @@ export class LoginComponent {
 
     this.loading = true;
 
-    // Simular retraso de red (opcional)
-    setTimeout(() => {
-      this.loading = false;
+    this.loginService.login(this.email, this.password).subscribe({
+      next: (res: any) => {
+        console.log("RESPUESTA LOGIN:", res);
+        this.loading = false;
 
-      // Reglas de ejemplo para "aceptar" login (cambiá a lo que quieras)
-      if (this.email === 'admin@correo.com' && this.password === '1234') {
-        // Simulamos sesión guardando un flag
+        const usuario = res?.data?.login;
+
+        if (!usuario) {
+          this.errorMessage = 'Usuario o contraseña incorrectos.';
+          return;
+        }
+
+        // Guardar sesión real
         localStorage.setItem('isLoggedIn', 'true');
-        // Redirigir a un dashboard (asegurate de tener la ruta)
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.errorMessage = 'Usuario o contraseña incorrectos.';
+        localStorage.setItem('usuario', JSON.stringify(usuario));
+
+        // Redirigir al menú (o dashboard, lo que uses)
+        this.router.navigate(['/menu']);
+      },
+      error: (err) => {
+        console.error('Error en login:', err);
+        this.loading = false;
+        this.errorMessage = 'Error al conectar con el servidor.';
       }
-    }, 800);
+    });
   }
 }
