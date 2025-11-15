@@ -1,27 +1,37 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { OportunidadService } from '../../services/oportunidad.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-publicar-proyectos',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, HttpClientModule],
   templateUrl: './publicar-proyectos.html',
   styleUrls: ['./publicar-proyectos.css']
 })
 export class PublicarProyectosComponent {
-   form;
-    usuario: any = null;
-    nombreCompleto = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  form;
+  usuario: any = null;
+  nombreCompleto = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private oportunidadService: OportunidadService
+  ) {
+
     this.form = this.fb.group({
       titulo: ['', [Validators.required, Validators.maxLength(120)]],
-      objetivos: ['', [Validators.required, Validators.maxLength(400)]],
-      requisitos: [''],
-      dd: [''],
-      mm: [''],
-      yy: ['']
+      descripcion: ['', Validators.required],
+      requisitos: ['', Validators.required],
+      ubicacion: ['', Validators.required],
+      modalidad: ['', Validators.required],
+      tipo: ['', Validators.required],
+      fechaCierre: ['', Validators.required]
     });
   }
 
@@ -40,8 +50,8 @@ export class PublicarProyectosComponent {
   }
 
   cancelar() {
-    this.form.reset();          // limpia todos los campos
-    this.router.navigate(['/menu']); // redirige al menú docente
+    this.form.reset();
+    this.router.navigate(['/menu']);
   }
 
   publicar() {
@@ -49,6 +59,30 @@ export class PublicarProyectosComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // TODO: enviar datos al backend
+
+    const input = {
+      idCreador: this.usuario.idUsuario,
+      titulo: this.form.value.titulo,
+      descripcion: this.form.value.descripcion,
+      requisitos: this.form.value.requisitos,
+      ubicacion: this.form.value.ubicacion,
+      modalidad: this.form.value.modalidad,
+      tipo: this.form.value.tipo,
+      fechaCierre: this.form.value.fechaCierre + ":00",
+      estado: "activo"
+    };
+
+    this.oportunidadService.crearOportunidadDocente(input)
+      .subscribe({
+        next: (op) => {
+          console.log("CREADO:", op);
+          alert("Proyecto publicado exitosamente");
+          this.router.navigate(['/menu']);
+        },
+        error: (err) => {
+          console.error(err);
+          alert("Error al publicar el proyecto");
+        }
+      });
   }
 }

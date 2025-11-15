@@ -9,27 +9,48 @@
   <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
 </nav>
 
+<!-- Contenedor principal del formulario -->
+<div class="form-container">
 
-<!-- Card -->
-<section class="card">
-  <h2>Título</h2>
-  <input class="txt" type="text" [formControl]="form.controls.titulo"/>
+  <!-- Card -->
+  <section class="card">
 
-  <h2>Objetivos</h2>
-  <input class="txt" type="text" [formControl]="form.controls.objetivos"/>
+    <h2>Título *</h2>
+    <input class="txt" type="text" [formControl]="form.controls.titulo"/>
 
-  <h2>Requisitos</h2>
-  <textarea class="area" rows="6" [formControl]="form.controls.requisitos"></textarea>
+    <h2>Descripción *</h2>
+    <textarea class="area" rows="4" [formControl]="form.controls.descripcion"></textarea>
 
-  <h2>Fecha</h2>
-  <div class="date">
-    <input class="chip" placeholder="dd" maxlength="2" [formControl]="form.controls.dd">
-    <input class="chip" placeholder="mm" maxlength="2" [formControl]="form.controls.mm">
-    <input class="chip" placeholder="yy" maxlength="2" [formControl]="form.controls.yy">
-  </div>
+    <h2>Requisitos *</h2>
+    <textarea class="area" rows="4" [formControl]="form.controls.requisitos"></textarea>
 
-  <div class="actions">
-    <button class="btn ghost" (click)="cancelar()">Cancelar</button>
-    <button class="btn primary" (click)="publicar()">Publicar</button>
-  </div>
-</section>
+    <h2>Ubicación *</h2>
+    <input class="txt" type="text" [formControl]="form.controls.ubicacion"/>
+
+    <h2>Modalidad *</h2>
+    <select class="txt" [formControl]="form.controls.modalidad">
+      <option value="">Seleccione...</option>
+      <option value="presencial">Presencial</option>
+      <option value="híbrido">Híbrido</option>
+      <option value="remoto">Remoto</option>
+    </select>
+
+    <h2>Tipo *</h2>
+    <select class="txt" [formControl]="form.controls.tipo">
+      <option value="">Seleccione...</option>
+      <option value="pasantia">Pasantía</option>
+      <option value="ayudantia">Ayudantía</option>
+      <option value="proyecto">Proyecto</option>
+    </select>
+
+    <h2>Fecha de Cierre *</h2>
+    <input class="txt" type="datetime-local" [formControl]="form.controls.fechaCierre"/>
+
+    <div class="actions">
+      <button class="btn ghost" (click)="cancelar()">Cancelar</button>
+      <button class="btn primary" (click)="publicar()">Publicar</button>
+    </div>
+
+  </section>
+
+</div>

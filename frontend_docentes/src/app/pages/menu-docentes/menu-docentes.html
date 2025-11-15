@@ -62,7 +62,8 @@
   <app-oportunidad-detalle
     [visible]="modalVisible"
     [oportunidad]="detalleOportunidad"
-    [postulaciones]="detallePostulaciones">
+    [postulaciones]="detallePostulaciones"
+    (cerrarModal)="modalVisible = false">
   </app-oportunidad-detalle>
 </section>
 

@@ -71,11 +71,13 @@ h2{font-size:18px;margin:14px 0 8px}
 .chip{width:60px;height:40px;border:1px solid #bdbdbd;border-radius:18px;text-align:center}
 .actions {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* O puedes usar center si los querés juntos */
   align-items: center;
-  gap: 70rem;              /* más espacio entre los botones */
+  gap: 2rem; /* separación lógica */
   margin-top: 2.5rem;
+  width: 100%; /* aseguramos que los botones respeten el contenedor */
 }
+
 
 /* === Botones principales === */
 .btn {
@@ -106,4 +108,14 @@ h2{font-size:18px;margin:14px 0 8px}
 .btn.primary:hover {
   background-color: #3b9641;
   transform: scale(1.05);
+}
+
+/* Contenedor general del formulario */
+.form-container {
+  width: 85%;
+  max-width: 900px;       /* No se hace demasiado grande */
+  margin: 2rem auto;      /* Centrado y con espacio vertical */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -26,6 +26,7 @@ export class ObtenerOportunidadesService {
           tipo
           estado
           fechaPublicacion
+          fechaCierre
         }
       }
     `;
