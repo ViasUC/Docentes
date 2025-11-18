@@ -1,0 +1,156 @@
+/* APLICA MISMA FUENTE A TODO EL MODAL */
+.modal,
+.modal * {
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/* FONDO DIFUMINADO */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* CARD PRINCIPAL */
+.modal-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 480px;
+  max-width: 92%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.25s ease-out;
+}
+
+/* TÍTULO */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+}
+
+/* LABELS */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #444;
+  font-size: 14px;
+}
+
+/* INPUTS Y TEXTAREA */
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-family: "Segoe UI", sans-serif; /* fuerza misma fuente */
+  outline: none;
+  transition: all 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* LISTA DEL BUSCADOR */
+ul {
+  background: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-top: -10px;
+  margin-bottom: 14px;
+  padding: 0;
+  list-style: none;
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: background 0.15s;
+  font-size: 14px;
+}
+
+ul li:hover {
+  background: #e6f0ff;
+}
+
+/* Archivo: editar-perfil.component.css */
+
+/* ... (mantener los estilos existentes del modal, h2, form, input, etc.) ... */
+
+/* Contenedor para los botones de acción */
+.actions {
+    display: flex;
+    justify-content: space-between; /* Espacia los botones */
+    gap: 20px; /* Espacio entre los botones */
+    margin-top: 20px;
+}
+
+/* Base para ambos botones */
+.actions button {
+    flex-grow: 1; /* Permite que ambos botones crezcan igual */
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+}
+
+/* Estilo para el botón de Guardar (usando la clase btn-guardar) */
+.btn-guardar {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-guardar:hover {
+    background-color: #3b8a40;
+    transform: scale(1.01);
+}
+
+/* Estilo para el botón de Cancelar */
+.btn-cancelar {
+    background-color: #f44336; /* Rojo para cancelar */
+    color: white;
+}
+
+.btn-cancelar:hover {
+    background-color: #d32f2f;
+    transform: scale(1.01);
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

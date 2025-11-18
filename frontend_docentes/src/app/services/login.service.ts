@@ -115,7 +115,7 @@ export class LoginService {
     return this.http.post(this.API_URL, body);
   }
 
-  // Método para actualizar perfil de Docente
+  // Método para actualizar el perfil de un docente
   actualizarDocente(usuario: any): Observable<any> {
     const body = {
       query: `
@@ -134,7 +134,7 @@ export class LoginService {
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             email: usuario.email,
-            password: usuario.password // Asegúrate de que la contraseña sea opcional
+            password: usuario.password, // Si la contraseña no es obligatoria, puedes dejarla opcional
           },
           departamento: usuario.profesorData.departamento,
           categoriaDocente: usuario.profesorData.categoriaDocente
@@ -145,7 +145,7 @@ export class LoginService {
     return this.http.post(this.API_URL, body);
   }
 
-  // Método para actualizar perfil de Investigador
+  // Método para actualizar el perfil de un investigador
   actualizarInvestigador(usuario: any): Observable<any> {
     const body = {
       query: `
@@ -166,7 +166,7 @@ export class LoginService {
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             email: usuario.email,
-            password: usuario.password,  // Asegúrate de que la contraseña sea opcional
+            password: usuario.password,  // Si la contraseña no es obligatoria, puedes dejarla opcional
             ubicacion: usuario.ubicacion
           },
           areasInvestigacion: usuario.investigadorData.areasInvestigacion,

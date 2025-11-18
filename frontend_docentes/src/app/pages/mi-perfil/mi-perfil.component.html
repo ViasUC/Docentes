@@ -1,4 +1,14 @@
-<!-- Mi perfil -->
+<!-- NAVBAR -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/menu">Inicio</button>
+  <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
+</nav>
+
 <div class="perfil-container">
   <h1>Mi Perfil</h1>
 
@@ -10,97 +20,28 @@
     <p><strong>Ubicación:</strong> {{ usuario?.ubicacion }}</p>
     <p><strong>Rol:</strong> {{ usuario?.rolPrincipal }}</p>
     <p><strong>Completitud:</strong> {{ usuario?.completitud }}%</p>
-
-    <!-- Datos específicos del Docente -->
-    <div *ngIf="usuario?.rolPrincipal === 'profesor'">
+    <div *ngIf="usuario?.profesorData">
       <p><strong>Departamento:</strong> {{ usuario?.profesorData?.departamento }}</p>
       <p><strong>Categoría Docente:</strong> {{ usuario?.profesorData?.categoriaDocente }}</p>
       <p><strong>Áreas Docentes:</strong> {{ usuario?.profesorData?.areasDocentes }}</p>
     </div>
-
-    <!-- Datos específicos del Investigador -->
-    <div *ngIf="usuario?.rolPrincipal === 'investigador'">
+    <div *ngIf="usuario?.investigadorData">
       <p><strong>Áreas de Investigación:</strong> {{ usuario?.investigadorData?.areasInvestigacion }}</p>
       <p><strong>Afiliaciones:</strong> {{ usuario?.investigadorData?.afiliaciones }}</p>
       <p><strong>Hindex:</strong> {{ usuario?.investigadorData?.hindex }}</p>
     </div>
   </div>
 
-  <!-- Botón de editar perfil -->
-  <button class="btn-editar" (click)="openModal()">Editar Perfil</button>
+<!-- Botón para abrir el modal -->
+<!-- Botón para abrir el modal -->
+<button (click)="openModal()" class="btn-editar">Editar Perfil</button>
 
-  <!-- Modal de edición de perfil -->
-  <div class="modal" *ngIf="modalVisible">
-    <div class="modal-content">
-      <h2>Editar Perfil</h2>
-
-      <!-- Contenedor para los campos de entrada (dividido en dos columnas) -->
-      <div class="input-container">
-        <!-- Campos comunes -->
-        <div>
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" [(ngModel)]="usuario.nombre" />
-        </div>
-
-        <div>
-          <label for="apellido">Apellido:</label>
-          <input type="text" id="apellido" [(ngModel)]="usuario.apellido" />
-        </div>
-
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" [(ngModel)]="usuario.email" />
-        </div>
-
-        <div>
-          <label for="telefono">Teléfono:</label>
-          <input type="text" id="telefono" [(ngModel)]="usuario.telefono" />
-        </div>
-
-        <div>
-          <label for="ubicacion">Ubicación:</label>
-          <input type="text" id="ubicacion" [(ngModel)]="usuario.ubicacion" />
-        </div>
-
-        <!-- Datos específicos del Docente -->
-        <div *ngIf="usuario?.rolPrincipal === 'profesor'">
-          <div>
-            <label for="departamento">Departamento:</label>
-            <input type="text" id="departamento" [(ngModel)]="usuario.profesorData.departamento" />
-          </div>
-
-          <div>
-            <label for="categoriaDocente">Categoría Docente:</label>
-            <input type="text" id="categoriaDocente" [(ngModel)]="usuario.profesorData.categoriaDocente" />
-          </div>
-
-          <div>
-            <label for="areasDocentes">Áreas Docentes:</label>
-            <input type="text" id="areasDocentes" [(ngModel)]="usuario.profesorData.areasDocentes" />
-          </div>
-        </div>
-
-        <!-- Datos específicos del Investigador -->
-        <div *ngIf="usuario?.rolPrincipal === 'investigador'">
-          <div>
-            <label for="areasInvestigacion">Áreas de Investigación:</label>
-            <input type="text" id="areasInvestigacion" [(ngModel)]="usuario.investigadorData.areasInvestigacion" />
-          </div>
-
-          <div>
-            <label for="afiliaciones">Afiliaciones:</label>
-            <input type="text" id="afiliaciones" [(ngModel)]="usuario.investigadorData.afiliaciones" />
-          </div>
-
-          <div>
-            <label for="hindex">Hindex:</label>
-            <input type="number" id="hindex" [(ngModel)]="usuario.investigadorData.hindex" />
-          </div>
-        </div>
-      </div>
-
-      <button class="btn-guardar" (click)="saveChanges()">Guardar Cambios</button>
-      <button class="btn-cancelar" (click)="closeModal()">Cancelar</button>
-    </div>
-  </div>
 </div>
+
+<!-- Modal de edición de perfil -->
+<app-editar-perfil 
+  [modalVisible]="modalVisible" 
+  [perfilData]="perfilDataCopy" 
+  (closeModal)="closeModal()" 
+  (updateData)="updateProfileData($event)">
+</app-editar-perfil>

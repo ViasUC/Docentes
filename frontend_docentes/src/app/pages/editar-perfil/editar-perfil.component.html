@@ -1,0 +1,49 @@
+<div *ngIf="modalVisible" class="modal">
+  <div class="modal-content">
+    <h2>Editar Perfil</h2>
+
+    <form (ngSubmit)="submitChanges()">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" [(ngModel)]="perfilData.nombre" />
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" name="apellido" [(ngModel)]="perfilData.apellido" />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="perfilData.email" />
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="perfilData.password" />
+
+      <div *ngIf="perfilData.departamento">
+        <label for="departamento">Departamento:</label>
+        <input type="text" id="departamento" name="departamento" [(ngModel)]="perfilData.departamento" />
+        
+        <label for="categoriaDocente">Categoría Docente:</label>
+        <input type="text" id="categoriaDocente" name="categoriaDocente" [(ngModel)]="perfilData.categoriaDocente" />
+      </div>
+
+      <div *ngIf="perfilData.areasDocentes && !perfilData.areasInvestigacion">
+        <label for="areasDocentes">Áreas Docentes:</label>
+        <input type="text" id="areasDocentes" name="areasDocentes" [(ngModel)]="perfilData.areasDocentes" />
+      </div>
+
+      <div *ngIf="perfilData.areasInvestigacion">
+        <label for="areasInvestigacion">Áreas de Investigación:</label>
+        <input type="text" id="areasInvestigacion" name="areasInvestigacion" [(ngModel)]="perfilData.areasInvestigacion" />
+
+        <label for="afiliaciones">Afiliaciones:</label>
+        <input type="text" id="afiliaciones" name="afiliaciones" [(ngModel)]="perfilData.afiliaciones" />
+
+        <label for="hindex">H-Index:</label>
+        <input type="number" id="hindex" name="hindex" [(ngModel)]="perfilData.hindex" />
+      </div>
+
+      <div class="actions">
+          <button type="submit" class="btn-guardar">Guardar cambios</button>
+          
+          <button type="button" class="btn-cancelar" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
