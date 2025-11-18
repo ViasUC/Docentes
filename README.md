@@ -27,7 +27,7 @@ Para verificar que se instaló correctamente:
 
 ng version
 
-Una vez clonado el repositorio, ejecutar:
+Una vez clonado el repositorio, ejecutar desde el directorio del proyecto clonado:
 
 npm install
 
