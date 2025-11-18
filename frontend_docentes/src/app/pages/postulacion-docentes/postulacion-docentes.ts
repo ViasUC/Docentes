@@ -18,10 +18,15 @@ export class PostulacionesDocenteComponent implements OnInit {
   error: any = null;
 
   postulaciones: any[] = [];
+  postulacionesOriginal: any[] = [];
+
+  estadoFiltro: string = 'PENDIENTE';
+  hayPendientes: boolean = true;   // ← NUEVO: controla columna
 
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
+
     this.usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
 
     if (this.usuario) {
@@ -85,8 +90,8 @@ export class PostulacionesDocenteComponent implements OnInit {
             pendientes--;
 
             if (pendientes === 0) {
-              // cuando termina todo → asignar
-              this.postulaciones = acumulado;
+              this.postulacionesOriginal = acumulado;
+              this.aplicarFiltro();
               this.loading = false;
             }
           });
@@ -102,10 +107,73 @@ export class PostulacionesDocenteComponent implements OnInit {
 
   }
 
+  // FILTRO
+  filtrarPorEstado(estado: string) {
+    this.estadoFiltro = estado;
+    this.aplicarFiltro();
+  }
+
+  aplicarFiltro() {
+    // Filtra exacto por el estado seleccionado
+    this.postulaciones = this.postulacionesOriginal.filter(
+      p => p.estado === this.estadoFiltro
+    );
+
+    // Mostrar columna de acciones SOLO si el estado filtrado es PENDIENTE
+    this.hayPendientes = (this.estadoFiltro === 'PENDIENTE');
+  }
+
+  // RECHAZAR CON MOTIVO
+  rechazarConMotivo(p: any) {
+    const motivo = prompt("Motivo del rechazo:");
+
+    if (!motivo || motivo.trim() === "") {
+      alert("Debe ingresar un motivo.");
+      return;
+    }
+
+    this.cambiarEstado(p, 'RECHAZADA', motivo);
+  }
+
+  // MUTACIÓN
+  cambiarEstado(p: any, nuevoEstado: string, motivo?: string) {
+
+    const motivoFinal =
+      motivo ?? (nuevoEstado === 'RECHAZADA'
+        ? 'Rechazado por el docente'
+        : 'Aceptado por el docente');
+
+    const mutation = `
+      mutation {
+        actualizarEstadoPostulacion(
+          idPostulacion: ${p.idPostulacion},
+          estado: ${nuevoEstado},
+          motivo: "${motivoFinal}",
+          idActor: ${this.usuario.idUsuario}
+        ) {
+          idPostulacion
+          estado
+        }
+      }
+    `;
+
+    this.http.post('/graphql', { query: mutation }).subscribe({
+      next: () => {
+        p.estado = nuevoEstado;
+        this.aplicarFiltro();
+        alert("Estado actualizado correctamente");
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Error al actualizar el estado");
+      }
+    });
+  }
 
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('usuario');
-    this.router.navigate(['/login']);
+
+    this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 }

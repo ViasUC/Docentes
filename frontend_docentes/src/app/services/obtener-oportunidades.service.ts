@@ -43,8 +43,14 @@ export class ObtenerOportunidadesService {
         oportunidadesPorCreador(creadorId: ${id}) {
           idOportunidad
           titulo
+          descripcion
+          requisitos
+          ubicacion
+          modalidad
+          tipo
           estado
           fechaPublicacion
+          fechaCierre
         }
       }
     `;
@@ -53,4 +59,5 @@ export class ObtenerOportunidadesService {
       map((res: any) => res.data?.oportunidadesPorCreador ?? [])
     );
   }
+
 }

@@ -6,10 +6,12 @@ import { RouterLink } from '@angular/router';
 import { ObtenerOportunidadesService } from '../../services/obtener-oportunidades.service';
 import { OportunidadDetalleComponent } from '../oportunidad-detalle/oportunidad-detalle.component';
 
+
+
 @Component({
   selector: 'app-menu-docentes',
   standalone: true,
-  imports: [CommonModule, RouterLink, OportunidadDetalleComponent],
+  imports: [CommonModule, RouterLink, OportunidadDetalleComponent ],
   templateUrl: './menu-docentes.html',
   styleUrls: ['./menu-docentes.css']
 })
@@ -19,16 +21,17 @@ export class MenuDocentesComponent implements OnInit {
   oportunidades: any[] = [];
   oportunidadesOriginal: any[] = [];     // 👈 SE AGREGA
   nombreCompleto = '';
-
   estadoFiltro: string = 'todos';        // 👈 SE AGREGA
-
   loading = true;
   error: any = null;
-
-  // 🔥 VARIABLES DEL MODAL
+  // VARIABLES DEL MODAL
   modalVisible = false;
   detalleOportunidad: any = null;
   detallePostulaciones: any[] = [];
+
+  
+
+
 
   constructor(
     private router: Router,
@@ -128,9 +131,13 @@ export class MenuDocentesComponent implements OnInit {
     });
   }
 
+
+
   logout(): void {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('usuario');
-    this.router.navigate(['/login']);
-  }
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('usuario');
+
+  this.router.navigateByUrl('/login', { replaceUrl: true });
+}
+
 }

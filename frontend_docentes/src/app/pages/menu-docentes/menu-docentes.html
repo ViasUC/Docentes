@@ -2,9 +2,12 @@
 <nav class="navbar">
   <button class="nav-btn active" routerLink="/menu">Inicio</button>
   <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
-  <div class="nav-username">{{ nombreCompleto }}</div>
-  <button class="nav-btn" routerLink="/menu">Ofrecer Mentoría</button>
-  <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
+
 </nav>
 
 <!-- Sección de botones principales -->
@@ -17,7 +20,7 @@
   <button class="action-btn">Reportes</button>
   <button class="action-btn">Indicadores</button>
   <button class="action-btn">Validar Participación</button>
-  <button class="action-btn logout">Cerrar Sesión</button>
+  <button class="action-btn" routerLink="/endorsement">Endorsement</button>
 </div>
 
 <!-- Card inferior: Actividades en curso -->
@@ -76,5 +79,14 @@
     [postulaciones]="detallePostulaciones"
     (cerrarModal)="modalVisible = false">
   </app-oportunidad-detalle>
+
+  <!--<app-crear-endorsement
+    [visible]="modalEndorsementVisible"
+    [fromUserId]="usuario?.idUsuario"
+    (cerrar)="cerrarEndorsementModal()">
+  </app-crear-endorsement>-->
+
+
+
 </section>
 

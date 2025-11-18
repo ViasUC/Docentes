@@ -1,0 +1,77 @@
+<!-- Navbar -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/menu" type="button">Inicio</button>
+  <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn active" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
+</nav>
+
+<div class="container">
+
+  <button class="btn-volver" routerLink="/canales">← Volver</button>
+
+  <div class="header">
+    <h1>{{ canal?.nombre }}</h1>
+    <span class="badge">{{ canal?.tipo }}</span>
+  </div>
+
+  <p class="descripcion">{{ canal?.descripcion }}</p>
+
+  <div class="acciones">
+    <button class="btn-crear" (click)="abrirCrearPublicacion()">Crear Publicación</button>
+  </div>
+
+  <h2 class="subtitulo">Publicaciones</h2>
+
+  <!-- Loading -->
+  <div *ngIf="loading">Cargando publicaciones…</div>
+
+  <!-- No hay publicaciones -->
+  <div *ngIf="!loading && publicaciones.length === 0" class="sin-publicaciones">
+    Este canal aún no tiene publicaciones.
+  </div>
+
+  <!-- FEED con scroll infinito -->
+  <div 
+    class="publicaciones-feed"
+    *ngIf="!loading && publicaciones.length > 0"
+    (scroll)="onScroll($event)"
+  >
+
+    <div class="publicacion-card" *ngFor="let p of publicacionesVisibles">
+
+      <h3>{{ p.titulo }}</h3>
+
+      <p class="contenido">{{ p.observacion }}</p>
+
+      <div class="meta">
+        <span>{{ p.fechaPublicacion | date:'short' }}</span>
+        <span class="autor">
+          {{ p.autor.nombre }} {{ p.autor.apellido }} ({{ p.autor.rolPrincipal }})
+        </span>
+      </div>
+
+      <button class="btn-destacar" (click)="destacarPublicacion(p)">
+        ⭐ {{ p.destacado ? 'Desmarcar' : 'Destacar' }}
+      </button>
+
+    </div>
+
+    <!-- Indicador de carga -->
+    <div *ngIf="cargandoMas" class="loading-extra">
+      Cargando más publicaciones...
+    </div>
+
+  </div>
+
+  <!-- Modal crear publicación -->
+  <app-canal-publicacion-crear
+    *ngIf="crearPublicacionVisible"
+    [idCanal]="canal.idCanal"
+    (cerrar)="cerrarCrearPublicacion()">
+  </app-canal-publicacion-crear>
+
+</div>

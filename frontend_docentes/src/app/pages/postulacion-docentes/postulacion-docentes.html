@@ -1,30 +1,57 @@
-<!-- NAVBAR IDÉNTICO -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <button class="nav-btn" routerLink="/menu">Inicio</button>
   <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
-  <div class="nav-username">{{ nombreCompleto }}</div>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
   <button class="nav-btn" routerLink="/menu">Ofrecer Mentoría</button>
-  <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
 </nav>
 
 <section class="activities-card">
   <h2>Postulaciones Recibidas</h2>
 
+  <!-- FILTRO -->
+  <div class="filtro-container">
+    <label for="filtroEstado"><strong>Filtrar por estado:</strong></label>
+    <select id="filtroEstado" (change)="filtrarPorEstado($any($event.target).value)">
+      <option value="PENDIENTE">Pendiente</option>
+      <option value="ACEPTADA">Aceptada</option>
+      <option value="RECHAZADA">Rechazada</option>
+      <option value="CANCELADA">Cancelada</option>
+    </select>
+  </div>
+
+
   <div *ngIf="loading" class="loading">Cargando...</div>
   <div *ngIf="error" class="error">Error cargando postulaciones</div>
 
-  <div class="table-head">
+ <!-- CABECERA -->
+  <div class="table-head" [ngClass]="{ 'acciones-activo': hayPendientes }">
     <span>Oportunidad</span>
     <span>Postulante</span>
     <span>Estado</span>
     <span>Fecha</span>
+    <span *ngIf="hayPendientes">Acciones</span>
   </div>
 
-  <div *ngFor="let p of postulaciones" class="row">
+  <!-- FILAS -->
+  <div *ngFor="let p of postulaciones"
+      class="row"
+      [ngClass]="{ 'acciones-activo': p.estado === 'PENDIENTE' }">
+
     <div>{{ p.oportunidad.titulo }}</div>
     <div>{{ p.postulante.nombre }} {{ p.postulante.apellido }}</div>
-    <div class="estado">{{ p.estado }}</div>
+    <div class="estado" [ngClass]="p.estado.toLowerCase()">{{ p.estado }}</div>
     <div>{{ p.fechaPostulacion | date:'yyyy-MM-dd' }}</div>
+
+    <!-- Acción solo si está pendiente -->
+    <div *ngIf="p.estado === 'PENDIENTE'" class="acciones">
+        <button class="btn-aceptar" (click)="cambiarEstado(p, 'ACEPTADA')">Aceptar</button>
+        <button class="btn-rechazar" (click)="rechazarConMotivo(p)">Rechazar</button>
+    </div>
+
   </div>
 
   <div *ngIf="!loading && postulaciones.length === 0" class="loading">

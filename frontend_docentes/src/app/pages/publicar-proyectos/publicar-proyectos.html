@@ -2,11 +2,11 @@
 <nav class="navbar">
   <button class="nav-btn" routerLink="/menu">Inicio</button>
   <button class="nav-btn active" routerLink="/publicar-proyectos">Publicar Proyecto</button>
-
-  <div class="nav-username">{{ nombreCompleto }}</div>
-
-  <button class="nav-btn" routerLink="/menu">Ofrecer Mentoría</button>
-  <button class="nav-btn" routerLink="/menu">Registrar Convenio</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
 </nav>
 
 <!-- Contenedor principal del formulario -->
@@ -41,6 +41,7 @@
       <option value="pasantia">Pasantía</option>
       <option value="ayudantia">Ayudantía</option>
       <option value="proyecto">Proyecto</option>
+      <option value="mentoria">Mentoría</option>
     </select>
 
     <h2>Fecha de Cierre *</h2>

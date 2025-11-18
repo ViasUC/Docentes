@@ -30,6 +30,15 @@
   text-align: center;
 }
 
+.nav-btn.logout {
+  background-color: #ff6b6b !important;
+  color: white !important;
+}
+
+.nav-btn.logout:hover {
+  background-color: #e14d4d !important;
+}
+
 .nav-btn:hover {
   background-color: #d0d0d0;
 }
@@ -50,6 +59,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.nav-username a {
+  text-decoration: none;  /* Elimina el subrayado */
+  color: #1f3b7a;         /* Asegura que el color del nombre del usuario sea el deseado */
+}
+
+/* Cuando el enlace ha sido clickeado (estado "visited") */
+.nav-username a:visited {
+  color: #1f3b7a; /* Mantiene el mismo color después de hacer clic */
+}
+
+/* Al pasar el cursor por encima (hover) */
+.nav-username a:hover {
+  color: #4e7cff;  /* Cambia a un color más brillante cuando se pasa el cursor */
 }
 
 .menu-container {
@@ -123,12 +146,13 @@
 .table-head,
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 0.7fr;
+  grid-template-columns: 1.2fr 1fr 1fr 0.8fr 1fr;
   align-items: center;
-  justify-items: center;   /* CENTRA TODO */
-  padding: 0.5rem 0.5rem;  /* MÁS JUNTO */
-  gap: 0.3rem;             /* MENOS ESPACIO ENTRE COLUMNAS */
+  justify-items: center;
+  padding: 0.5rem 0.5rem;
+  gap: 0.3rem;
 }
+
 
 .table-head {
   font-weight: 600;
@@ -174,8 +198,9 @@
   .profile{order:-1}
 }
 @media (max-width: 760px){
-  .actions-grid{grid-template-columns:1fr 1fr}
-  .table-head, .row{grid-template-columns: 1.4fr .9fr 1.6fr 100px}
+  .table-head, .row {
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+  }
 }
 @media (max-width: 560px){
   .navbar{flex-direction:column}
@@ -194,4 +219,113 @@
   font-weight: 600;
   border-radius: 6px;
   text-align: center;
+}
+
+.estado {
+  padding: 4px 8px;
+  color: black;
+  font-weight: 600;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Colores */
+/* Badges de estado */
+.pendiente {
+  background-color: #f6e572; /* Amarillo */
+}
+
+.aceptada {
+  background-color: #a7e8a7; /* Verde */
+}
+
+.rechazada {
+  background-color: #ff7b7b; /* Rojo suave */
+}
+
+/* Rojo crítico para cancelada */
+.cancelada {
+  background-color: #bdbdbd; /* Gris neutro */
+  color: #000;               /* Texto negro para contraste */
+}
+
+
+.acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-aceptar {
+  background: #4caf50;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-rechazar {
+  background: #ff5252;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-aceptar:hover {
+  background: #3b8a40;
+}
+
+.btn-rechazar:hover {
+  background: #e14d4d;
+}
+
+.filtro-container {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-editar {
+  background: #4a90e2;  /* azul suave */
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-editar:hover {
+  background: #357ABD; /* azul más oscuro */
+}
+
+/* 4 columnas por defecto */
+.table-head,
+.row {
+  grid-template-columns: 1.2fr 1fr 1fr 0.8fr;
+}
+
+/* Cuando hay acciones, agregamos la 5ta columna */
+.table-head.acciones-activo,
+.row.acciones-activo {
+  grid-template-columns: 1.2fr 1fr 1fr 0.8fr 1fr;
+}
+
+.filtro-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+}
+
+.filtro-container select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background: white;
 }

@@ -1,0 +1,208 @@
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  margin: 1rem auto;
+  width: 95%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  flex: 1;
+  background-color: #e6e6e6;
+  border: none;
+  border-radius: 10px;
+  height: 45px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.nav-btn.logout {
+  background-color: #ff6b6b !important;
+  color: white !important;
+}
+
+.nav-btn.logout:hover {
+  background-color: #e14d4d !important;
+}
+
+.nav-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.nav-btn.active {
+  background-color: #4e7cff;
+  color: white;
+}
+
+.nav-username {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 600;
+  color: #1f3b7a;
+  font-size: 0.95rem;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos del enlace en el navbar */
+.nav-username a {
+  text-decoration: none;  /* Elimina el subrayado */
+  color: #1f3b7a;         /* Asegura que el color del nombre del usuario sea el deseado */
+}
+
+/* Cuando el enlace ha sido clickeado (estado "visited") */
+.nav-username a:visited {
+  color: #1f3b7a; /* Mantiene el mismo color después de hacer clic */
+}
+
+/* Al pasar el cursor por encima (hover) */
+.nav-username a:hover {
+  color: #4e7cff;  /* Cambia a un color más brillante cuando se pasa el cursor */
+}
+/* ================== CARDS ================== */
+
+.activities-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 95%;
+  margin: 2rem auto;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.35rem;
+}
+
+.crear-btn {
+  background: #3579f6;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.crear-btn:hover {
+  background: #2d68d3;
+}
+
+/* ================== TABLAS ================== */
+
+.table-head {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.8fr 1.2fr;
+  padding: 0.6rem;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 0.4rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.8fr 1.2fr;
+  background: #fafafa;
+  padding: 0.7rem;
+  border-radius: 8px;
+  margin-top: 0.4rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.row span,
+.table-head span {
+  text-align: center;
+}
+
+/* ===== ACCIONES (Pendientes) ===== */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.accept-btn {
+  background: #28a745;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Mensaje vacío */
+.loading {
+  text-align: center;
+  color: #666;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* ===== ESTADOS (Enviados) ===== */
+
+.estado {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+  min-width: 110px;
+}
+
+/* Colores tipo postulacion-docentes */
+.pendiente {
+  background-color: #f6e572;   /* Amarillo */
+  color: #000;
+}
+
+.aceptada {
+  background-color: #a7e8a7;   /* Verde */
+  color: #000;
+}
+
+.rechazada {
+  background-color: #ff7b7b;   /* Rojo */
+  color: #000;
+}
+
+.cancelada {
+  background-color: #bdbdbd;   /* Gris */
+  color: #000;
+}

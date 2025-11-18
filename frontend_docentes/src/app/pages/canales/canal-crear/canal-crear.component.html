@@ -1,0 +1,38 @@
+<div class="modal-overlay" [class.visible]="visible">
+  <div class="modal-card">
+
+    <h2>Crear Nuevo Canal</h2>
+
+    <div class="form-group">
+      <label>Nombre *</label>
+      <input type="text" [(ngModel)]="form.nombre">
+    </div>
+
+    <div class="form-group">
+      <label>Slug *</label>
+      <input type="text" [(ngModel)]="form.slug">
+    </div>
+
+    <div class="form-group">
+      <label>Tipo *</label>
+      <select [(ngModel)]="form.tipo">
+        <option value="">Seleccione...</option>
+        <option value="OFERTAS">OFERTAS</option>
+        <option value="EVENTOS">EVENTOS</option>
+        <option value="INNOVACION">INNOVACIÓN</option>
+        <option value="NOTICIAS_INSTITUCIONALES">NOTICIAS INSTITUCIONALES</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea [(ngModel)]="form.descripcion"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cerrar()">Cancelar</button>
+      <button class="btn-confirm" (click)="crear()">Crear</button>
+    </div>
+
+  </div>
+</div>

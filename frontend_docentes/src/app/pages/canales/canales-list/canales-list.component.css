@@ -1,0 +1,488 @@
+/* === Barra superior === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  margin: 1rem auto;
+  width: 95%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  gap: 0.5rem;
+}
+
+/* Botones */
+.nav-btn {
+  flex: 1;
+  background-color: #e6e6e6;
+  border: none;
+  border-radius: 10px;
+  height: 45px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.nav-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.nav-btn.active {
+  background-color: #4e7cff;
+  color: white;
+}
+
+.nav-btn.logout {
+  background-color: #ff6b6b !important;
+  color: white !important;
+}
+
+.nav-btn.logout:hover {
+  background-color: #e14d4d !important;
+}
+
+/* Nombre del usuario centrado */
+.nav-username {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 600;
+  color: #1f3b7a;
+  font-size: 0.95rem;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos del enlace en el navbar */
+.nav-username a {
+  text-decoration: none;  /* Elimina el subrayado */
+  color: #1f3b7a;         /* Asegura que el color del nombre del usuario sea el deseado */
+}
+
+/* Cuando el enlace ha sido clickeado (estado "visited") */
+.nav-username a:visited {
+  color: #1f3b7a; /* Mantiene el mismo color después de hacer clic */
+}
+
+/* Al pasar el cursor por encima (hover) */
+.nav-username a:hover {
+  color: #4e7cff;  /* Cambia a un color más brillante cuando se pasa el cursor */
+}
+
+
+/* === CONTENEDOR PRINCIPAL === */
+.canales-container {
+  width: 92%;
+  max-width: 1300px;
+  margin: 30px auto 40px;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.15);
+  border: 1px solid #d7d7d7;
+}
+
+/* === HEADER === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1d2a4a;
+  margin-bottom: 8px;
+}
+
+.header-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #4e7cff;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+/* === BOTÓN CREAR === */
+/* Botón "Crear Canal" */
+.btn-crear {
+  background: #4e7cff;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;  /* Bordes redondeados */
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;  /* Suave transición */
+}
+
+.btn-crear:hover {
+  background: #3a68cc;  /* Color más oscuro cuando se pasa el ratón */
+  transform: translateY(-2px); /* Pequeña animación para hacerlo más atractivo */
+}
+
+.btn-crear:focus {
+  outline: none;  /* Eliminar outline por defecto */
+}
+
+
+/* === GRID === */
+.canales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 30px;
+}
+
+/* === CARD GRIS === */
+.canal-card {
+  background: #f5f5f5;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #d0d0d0;
+  transition: 0.25s ease;
+}
+
+.canal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+}
+
+/* === TÍTULO DEL CANAL === */
+.canal-title {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1d1d1d;
+}
+
+/* === BADGE === */
+.tipo-badge {
+  display: inline-block;
+  background: #e5ebff;
+  color: #3451d1;
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* === DESCRIPCIÓN === */
+.descripcion {
+  color: #444;
+  margin-bottom: 22px;
+  line-height: 1.35rem;
+}
+
+/* === BOTONES === */
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-ver {
+  background: #222;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-follow {
+  background: #e6e6e6;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-follow:hover {
+  background: #d4d4d4;
+}
+
+.btn-follow.siguiendo {
+  background: #1d8b34 !important;
+  color: white !important;
+  border: none;
+}
+
+/* ============================== */
+/*       MODAL CREAR CANAL        */
+/* ============================== */
+
+.modal-overlay {
+  position: fixed;           /* 🔥 fundamental */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;             /* 🔥 por encima de todo */
+}
+
+.modal-card {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  width: 450px;
+  animation: modalIn .25s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================== */
+/* LAYOUT DOS COLUMNAS (30% / 70%) */
+/* =============================== */
+.canales-layout {
+  display: grid;
+  grid-template-columns: 30% 68%;  /* Proporción 30% izquierda / 70% derecha */
+  gap: 2%;
+  width: 92%;
+  max-width: 1400px;
+  margin: 30px auto;
+}
+
+/* COLUMNA IZQUIERDA: Canales */
+.col-canales {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+  border: 1px solid #d7d7d7;
+  height: calc(100vh - 180px);
+  overflow-y: auto;
+  clip-path: inset(0 round 20px);  /* Mantener bordes redondeados al usar scroll */
+}
+
+/* =============================== */
+/* COLUMNA DERECHA: Feed con scroll */
+/* =============================== */
+.col-feed {
+  background: #ffffff;
+  border-radius: 20px;  /* Bordes redondeados */
+  padding: 30px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+  border: 1px solid #d7d7d7;
+  height: calc(100vh - 180px);
+  overflow-y: auto;
+  /* Mantener bordes redondeados al usar scroll */
+  clip-path: inset(0 round 20px);
+}
+
+/* =============================== */
+/* FEED - COLUMNA DERECHA */
+/* =============================== */
+.feed-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1d2a4a;
+}
+
+.feed-scroll {
+  max-height: calc(100vh - 220px);  /* Ajustamos el tamaño para el scroll interno */
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;  /* Aumentamos el gap entre publicaciones */
+}
+
+.feed-card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  animation: fadeInUp 0.25s ease-out;
+}
+
+.meta-feed {
+  margin-top: 10px;
+  color: #666;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feed-loading {
+  text-align: center;
+  color: #777;
+  padding: 10px 0;
+}
+
+/* Animación de aparición de publicaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =============================== */
+/* GRID DE CANALES */
+/* =============================== */
+.canales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 30px;
+}
+
+.canal-card {
+  background: #f5f5f5;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #d0d0d0;
+  transition: 0.25s ease;
+}
+
+.canal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+}
+
+/* =============================== */
+/* FEED - COLUMNA DERECHA */
+/* =============================== */
+.feed-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;  /* Aumentamos el espacio debajo del título */
+  color: #1d2a4a;
+}
+
+/* =============================== */
+/* TARJETAS DE PUBLICACIÓN DEL FEED */
+/* =============================== */
+.feed-scroll {
+  max-height: calc(100vh - 220px);  /* Ajustamos el tamaño para el scroll interno */
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;  /* Aumentamos el espacio entre las publicaciones */
+}
+
+.feed-card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  animation: fadeInUp 0.25s ease-out;
+  margin-bottom: 20px;  /* Espacio adicional en la parte inferior de cada publicación */
+}
+
+.meta-feed {
+  margin-top: 10px;
+  color: #666;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feed-loading {
+  text-align: center;
+  color: #777;
+  padding: 10px 0;
+}
+
+/* Animación de aparición de publicaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =============================== */
+/* TARJETAS DE PUBLICACIÓN DEL FEED */
+/* =============================== */
+.feed-card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #d0d0d0;
+  animation: fadeInUp 0.25s ease-out;
+}
+
+.meta-feed {
+  margin-top: 10px;
+  color: #666;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feed-loading {
+  text-align: center;
+  color: #777;
+  padding: 10px 0;
+}
+
+/* Animación de aparición de publicaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para el filtro de tipo */
+.filtro-tipo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filtro-tipo label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.filtro-tipo select {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

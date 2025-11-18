@@ -1,0 +1,75 @@
+<!-- NAVBAR -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/menu">Inicio</button>
+  <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
+</nav>
+
+
+<!-- CARD PENDIENTES -->
+<section class="activities-card">
+
+  <div class="card-header">
+    <h2>Pendientes</h2>
+  </div>
+
+  <app-crear-endorsement
+    [visible]="crearVisible"
+    [fromUserId]="userId"
+    (cerrar)="cerrarModal()">
+  </app-crear-endorsement>
+
+  <div class="table-head">
+    <span>De</span>
+    <span>Skill</span>
+    <span>Mensaje</span>
+    <span>Acciones</span>
+  </div>
+
+  <div *ngFor="let p of pendientes" class="row">
+    <span>{{ p.fromNombre }}</span>
+    <span>{{ p.skill }}</span>
+    <span>{{ p.message }}</span>
+    <div class="actions">
+      <button class="accept-btn" (click)="decidir(p.idEndorsement, true)">Aceptar</button>
+      <button class="reject-btn" (click)="decidir(p.idEndorsement, false)">Rechazar</button>
+    </div>
+  </div>
+
+  <div *ngIf="pendientes.length === 0" class="loading">Sin pendientes</div>
+
+</section>
+
+
+
+<!-- CARD ENVIADOS -->
+<section class="activities-card">
+
+  <div class="card-header">
+    <h2>Enviados</h2>
+    <button class="crear-btn" (click)="abrirModal()">Crear Endorsement</button>
+  </div>
+
+  <div class="table-head">
+    <span>Para</span>
+    <span>Skill</span>
+    <span>Mensaje</span>
+    <span>Estado</span>
+  </div>
+
+  <div *ngFor="let e of enviados" class="row">
+    <span>{{ e.toNombre }}</span>
+    <span>{{ e.skill }}</span>
+    <span>{{ e.message }}</span>
+    <span>
+      <span class="estado {{ e.estadoCss }}">{{ e.status }}</span>
+    </span>
+  </div>
+
+  <div *ngIf="enviados.length === 0" class="loading">Sin enviados</div>
+
+</section>

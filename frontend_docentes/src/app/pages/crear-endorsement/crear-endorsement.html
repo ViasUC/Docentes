@@ -1,0 +1,37 @@
+<div class="modal" *ngIf="visible">
+
+  <div class="modal-content">
+
+    <h2>Crear Endorsment</h2>
+    <!-- BUSCADOR -->
+    <input
+      type="text"
+      placeholder="Buscar usuario..."
+      [(ngModel)]="textoBuscador"
+      (input)="buscarUsuarios($event)"
+    />
+
+
+
+    <ul *ngIf="resultados.length">
+      <li *ngFor="let u of resultados" (click)="seleccionarUsuario(u)">
+        {{ u.nombre }} {{ u.apellido }}
+      </li>
+    </ul>
+
+
+
+    <label>Skill:</label>
+    <input type="text" [(ngModel)]="endorsement.skill">
+
+    <label>Mensaje:</label>
+    <textarea [(ngModel)]="endorsement.message"></textarea>
+
+    <div class="acciones">
+      <button class="btn-enviar" (click)="enviar()">Enviar</button>
+      <button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+    </div>
+
+  </div>
+
+</div>

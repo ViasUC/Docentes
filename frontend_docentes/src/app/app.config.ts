@@ -5,7 +5,6 @@ import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 
-// Apollo Angular 6 (compatible Angular 20)
 import { provideApollo } from 'apollo-angular';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client/core';
 
@@ -15,6 +14,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(FormsModule),
+
+    provideApollo(() => {
+      return new ApolloClient({
+        link: new HttpLink({
+          uri: 'http://localhost:8080/graphql',  // AJUSTAR SI TU BACK NO ESTÁ AQUÍ
+        }),
+        cache: new InMemoryCache(),
+      });
+    }),
   ],
 };
-

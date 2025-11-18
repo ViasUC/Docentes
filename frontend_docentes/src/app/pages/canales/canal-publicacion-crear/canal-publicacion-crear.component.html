@@ -1,0 +1,22 @@
+<div class="modal-overlay">
+  <div class="modal-card">
+
+    <h2 class="modal-title">Nueva Publicación</h2>
+
+    <div class="form-group">
+      <label class="form-label">Título *</label>
+      <input class="form-input" [(ngModel)]="form.titulo" placeholder="Ingrese un título...">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Contenido *</label>
+      <textarea class="form-textarea" [(ngModel)]="form.contenido" placeholder="Escriba la descripción..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cerrar.emit()">Cancelar</button>
+      <button class="btn-confirm" (click)="crear()">Publicar</button>
+    </div>
+
+  </div>
+</div>

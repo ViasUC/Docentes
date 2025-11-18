@@ -1,0 +1,238 @@
+    /* === Barra superior === */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    margin: 1rem auto;
+    width: 95%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    gap: 0.5rem;
+    }
+
+    /* Botones */
+    .nav-btn {
+    flex: 1;
+    background-color: #e6e6e6;
+    border: none;
+    border-radius: 10px;
+    height: 45px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    }
+
+    .nav-btn:hover {
+    background-color: #d0d0d0;
+    }
+
+    .nav-btn.active {
+    background-color: #4e7cff;
+    color: white;
+    }
+
+    .nav-btn.logout {
+    background-color: #ff6b6b !important;
+    color: white !important;
+    }
+
+    .nav-btn.logout:hover {
+    background-color: #e14d4d !important;
+    }
+
+    /* Nombre del usuario centrado */
+    .nav-username {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: 600;
+    color: #1f3b7a;
+    font-size: 0.95rem;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    /* Estilos del enlace en el navbar */
+.nav-username a {
+  text-decoration: none;  /* Elimina el subrayado */
+  color: #1f3b7a;         /* Asegura que el color del nombre del usuario sea el deseado */
+}
+
+/* Cuando el enlace ha sido clickeado (estado "visited") */
+.nav-username a:visited {
+  color: #1f3b7a; /* Mantiene el mismo color después de hacer clic */
+}
+
+/* Al pasar el cursor por encima (hover) */
+.nav-username a:hover {
+  color: #4e7cff;  /* Cambia a un color más brillante cuando se pasa el cursor */
+}
+
+
+    .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+    }
+
+    .btn-volver {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    color: #0554a7;
+    font-weight: 600;
+    }
+
+    .header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    }
+
+    .header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    }
+
+    .badge {
+    padding: 6px 12px;
+    background: #edf0ff;
+    color: #3952d8;
+    border-radius: 8px;
+    font-weight: 600;
+    }
+
+    .descripcion {
+    margin-top: 10px;
+    color: #555;
+    }
+
+    .acciones {
+    margin: 20px 0;
+    }
+
+    .btn-crear {
+    background: #0554a7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    }
+
+    .subtitulo {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    }
+
+    .publicaciones-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+    }
+
+
+    .publicacion-card {
+    background: #f6f6f6;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .publicacion-card h3 {
+    margin-bottom: 10px;
+    }
+
+    .meta {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    }
+
+    .btn-destacar {
+    margin-top: 10px;
+    background: #ffd700;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    }
+
+    .btn-mas {
+    background: #0554a7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    }
+
+    .sin-publicaciones {
+    margin-top: 20px;
+    color: #666;
+    font-style: italic;
+    }
+
+    .publicaciones-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 20px;
+    }
+
+    .loading-extra {
+    text-align: center;
+    color: #777;
+    padding: 10px 0;
+    }
+
+    .sin-publicaciones {
+    margin-top: 15px;
+    font-style: italic;
+    color: #666;
+    }
+
+/* Estilo para la estrella vacía */
+.estrella-vacia {
+  color: gray;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Estilo para la estrella amarilla (cuando está destacada) */
+.estrella-amarilla {
+  color: gold;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Estilo para el texto "Destacado" */
+.destacar span {
+  margin-left: 10px;
+  font-weight: bold;
+}

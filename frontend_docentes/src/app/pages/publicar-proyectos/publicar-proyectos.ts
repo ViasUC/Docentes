@@ -85,4 +85,12 @@ export class PublicarProyectosComponent {
         }
       });
   }
+
+  logout(): void {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('usuario');
+
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
+
 }

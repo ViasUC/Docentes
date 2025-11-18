@@ -1,0 +1,80 @@
+<!-- Navbar -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/menu">Inicio</button>
+  <button class="nav-btn" routerLink="/publicar-proyectos">Publicar Proyecto</button>
+  <div class="nav-username">
+    <a [routerLink]="['/mi-perfil']">{{ nombreCompleto }}</a>
+  </div>
+  <button class="nav-btn active" routerLink="/canales">Canales</button>
+  <button class="nav-btn logout" (click)="logout()">Cerrar Sesión</button>
+</nav>
+
+<div class="canales-layout">
+
+  <!-- =========================== -->
+  <!--   COLUMNA IZQUIERDA: Canales -->
+  <!-- =========================== -->
+  <div class="col-canales">
+    
+
+    <div class="header">
+      <h2 class="header-title">Canales de Información</h2>
+      <button class="btn-crear" (click)="abrirModalCrear()">Crear Canal</button>
+    </div>
+
+    <div *ngIf="loading">Cargando canales...</div>
+
+    <div *ngIf="!loading && !error" class="canales-grid">
+      <div *ngFor="let canal of canales" class="canal-card">
+
+        <h3 class="canal-title">{{ canal.nombre }}</h3>
+        <div class="tipo-badge">{{ canal.tipo }}</div>
+        <p class="descripcion">{{ canal.descripcion }}</p>
+
+        <div class="acciones">  
+          <button class="btn-ver" (click)="verDetalle(canal.slug)">Ver Canal</button>
+          <button class="btn-follow"
+                  [class.siguiendo]="canal.siguiendo"
+                  (click)="toggleFollow(canal)">
+            {{ canal.siguiendo ? 'Siguiendo ✓' : 'Seguir' }}
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-feed">
+
+  <h2 class="feed-title">Mi Feed</h2>
+
+  <div *ngIf="feedLoading">Cargando contenido…</div>
+
+
+
+    <div class="feed-card" *ngFor="let pub of feedVisibles">
+    <h3>{{ pub.titulo }}</h3>
+    <p class="contenido">{{ pub.observacion }}</p>
+
+    <!-- Mostrar el nombre completo y el rol del autor -->
+    <div class="meta-feed">
+        <span>{{ pub.fechaPublicacion | date:'short' }}</span>
+        <span>{{ pub.autor.nombre }} {{ pub.autor.apellido }} ({{ pub.autor.rolPrincipal }})</span>  <!-- Aquí se muestra el rol -->
+    </div>
+    </div>
+
+
+    <div *ngIf="feedCargandoMas" class="feed-loading">
+      Cargando más contenido...
+    </div>
+
+  </div>
+</div>
+
+
+<app-canal-crear
+  [visible]="modalCrearVisible"
+  (cerrarModal)="cerrarModalCrear()">
+</app-canal-crear>
+
