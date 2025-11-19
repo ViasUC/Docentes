@@ -13,15 +13,23 @@
   <h2>Postulaciones Recibidas</h2>
 
   <!-- FILTRO -->
-  <div class="filtro-container">
-    <label for="filtroEstado"><strong>Filtrar por estado:</strong></label>
-    <select id="filtroEstado" (change)="filtrarPorEstado($any($event.target).value)">
-      <option value="PENDIENTE">Pendiente</option>
-      <option value="ACEPTADA">Aceptada</option>
-      <option value="RECHAZADA">Rechazada</option>
-      <option value="CANCELADA">Cancelada</option>
-    </select>
-  </div>
+<div class="filtro-container">
+  <label for="filtroEstado"><strong>Filtrar por estado:</strong></label>
+  <select id="filtroEstado" (change)="filtrarPorEstado($any($event.target).value)">
+    <option value="PENDIENTE">Pendiente</option>
+    <option value="ACEPTADA">Aceptada</option>
+    <option value="RECHAZADA">Rechazada</option>
+    <option value="CANCELADA">Cancelada</option>
+  </select>
+
+  <label for="filtroOportunidad"><strong>Filtrar por oportunidad:</strong></label>
+  <select id="filtroOportunidad" (change)="filtrarPorOportunidad($any($event.target).value)">
+    <option value="">Seleccionar oportunidad</option>
+    <option *ngFor="let oportunidad of oportunidades" [value]="oportunidad.idOportunidad">
+      {{ oportunidad.titulo }}
+    </option>
+  </select>
+</div>
 
 
   <div *ngIf="loading" class="loading">Cargando...</div>
