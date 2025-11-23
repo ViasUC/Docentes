@@ -64,51 +64,46 @@ selectedTipo: string = 'OFERTAS';  // Tipo por defecto
   }
 
   cargarCanales() {
-    this.loading = true;
+  this.loading = true;
 
-    // 1) Siempre traemos los canales activos
-    this.canalesService.getCanalesActivos().subscribe({
-      next: (res: any) => {
-        const activos = res.data.canalesActivos;
+  this.canalesService.getCanalesActivos().subscribe({
+    next: (res: any) => {
+      const activos = res.data.canalesActivos;
 
-        // Inicialmente todos como no seguidos
-        this.canales = activos.map((c: any) => ({
-          ...c,
-          siguiendo: false
-        }));
+      this.canales = activos.map((c: any) => ({
+        ...c,
+        siguiendo: false
+      }));
 
-        this.loading = false;
+      console.log("Canales cargados:", this.canales);  // Verifica los canales cargados
 
-        // 2) Marcar los canales seguidos SOLO si tenemos idUsuario válido
-        if (this.idUsuario != null && !Number.isNaN(this.idUsuario)) {
-          this.canalesService.canalesSeguidos(this.idUsuario).subscribe({
-            next: (resSeg: any) => {
-              const idsSeguidos = resSeg.data.canalesSeguidos.map(
-                (x: any) => x.idCanal
-              );
+      this.loading = false;
 
-              this.canales = this.canales.map(c => ({
-                ...c,
-                siguiendo: idsSeguidos.includes(c.idCanal)
-              }));
-            },
-            error: (err) => {
-              console.error('Error al cargar canalesSeguidos:', err);
-              // No rompemos nada, simplemente no marcamos "siguiendo"
-            }
-          });
-        } else {
-          console.warn('idUsuario no definido o inválido, no se marcan canales seguidos.');
-        }
-      },
-      error: (err) => {
-        console.error('ERROR getCanalesActivos:', err);
-        this.error = true;
-        this.loading = false;
+      // Marcar canales seguidos si el idUsuario es válido
+      if (this.idUsuario) {
+        this.canalesService.canalesSeguidos(this.idUsuario).subscribe({
+          next: (resSeg: any) => {
+            const idsSeguidos = resSeg.data.canalesSeguidos.map((x: any) => x.idCanal);
+
+            this.canales = this.canales.map(c => ({
+              ...c,
+              siguiendo: idsSeguidos.includes(c.idCanal)
+            }));
+          },
+          error: (err) => {
+            console.error('Error al cargar canalesSeguidos:', err);
+            this.loading = false;
+          }
+        });
       }
-    });
-  }
-  
+    },
+    error: (err) => {
+      console.error('ERROR getCanalesActivos:', err);
+      this.error = true;
+      this.loading = false;
+    }
+  });
+}
 
 cargarFeed() {
   if (!this.idUsuario) return;
@@ -119,7 +114,9 @@ cargarFeed() {
     next: (res: any) => {
       this.feed = res.data.feedCanalesSeguidos;
 
-      // Procesar el feed para incluir el rol del autor
+      console.log("Feed recibido:", this.feed);
+
+      // Ya NO buscamos canal por id. Usamos lo que ya viene.
       this.feedVisibles = this.feed.slice(0, this.feedBatch);
 
       this.feedLoading = false;

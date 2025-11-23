@@ -486,3 +486,9 @@
   border-radius: 8px;
   border: 1px solid #ddd;
 }
+.canal-info {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 10px;
+  font-weight: 600;
+}

@@ -106,6 +106,7 @@ export class CanalesService {
             observacion
             estado
             fechaPublicacion
+            destacado
             autor {
                 idUsuario
                 nombre
@@ -164,11 +165,20 @@ export class CanalesService {
           observacion
           estado
           fechaPublicacion
+          destacado
           autor {
             idUsuario
             nombre
             apellido
             rolPrincipal
+          }
+          canales {
+            idCanal
+            nombre
+            slug
+            tipo
+            descripcion
+            activo
           }
         }
       }
@@ -177,6 +187,4 @@ export class CanalesService {
     fetchPolicy: 'no-cache'
   });
 }
-
-
 }

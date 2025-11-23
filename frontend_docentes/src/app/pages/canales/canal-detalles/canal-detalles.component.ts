@@ -99,19 +99,22 @@ cargandoMas = false;
 
 // Función para destacar o desmarcar la publicación
   destacarPublicacion(publicacion: any) {
-    const destacado = !publicacion.destacado;
+  const destacado = !publicacion.destacado;
 
-    this.canalesService.destacarPublicacion(this.canal.idCanal, publicacion.idPublicacion, destacado)
-      .subscribe({
-        next: () => {
-          // Actualizamos el estado local
-          publicacion.destacado = destacado;
-        },
-        error: (err) => {
-          console.error('Error al destacar/desmarcar publicación:', err);
-        }
-      });
-  }
+  this.canalesService.destacarPublicacion(
+      this.canal.idCanal,
+      publicacion.idPublicacion,
+      destacado
+  ).subscribe({
+    next: () => {
+      publicacion.destacado = destacado;
+    },
+    error: (err) => {
+      console.error('Error al destacar/desmarcar publicación:', err);
+    }
+  });
+}
+
 
 // ===============================
 // Scroll infinito → cargar más

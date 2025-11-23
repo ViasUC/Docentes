@@ -224,15 +224,16 @@
   font-size: 24px;
 }
 
-/* Estilo para la estrella amarilla (cuando está destacada) */
 .estrella-amarilla {
   color: gold;
   cursor: pointer;
   font-size: 24px;
 }
 
-/* Estilo para el texto "Destacado" */
-.destacar span {
-  margin-left: 10px;
-  font-weight: bold;
+.destacar {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
 }
+

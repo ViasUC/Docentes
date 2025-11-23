@@ -54,6 +54,9 @@
 
 
     <div class="feed-card" *ngFor="let pub of feedVisibles">
+    <div class="canal-info" *ngIf="pub.canales?.length">
+    <strong>Canal:</strong> {{ pub.canales[0].nombre }}
+    </div>
     <h3>{{ pub.titulo }}</h3>
     <p class="contenido">{{ pub.observacion }}</p>
 
@@ -62,7 +65,8 @@
         <span>{{ pub.fechaPublicacion | date:'short' }}</span>
         <span>{{ pub.autor.nombre }} {{ pub.autor.apellido }} ({{ pub.autor.rolPrincipal }})</span>  <!-- Aquí se muestra el rol -->
     </div>
-    </div>
+     <!-- Mostrar el nombre del canal de donde proviene la publicación -->
+    
 
 
     <div *ngIf="feedCargandoMas" class="feed-loading">
