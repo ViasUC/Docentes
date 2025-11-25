@@ -426,11 +426,12 @@
   color: #1976d2;
   font-weight: 600;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;  /* ← QUITADO */
   padding: 0;
   font-size: 14px;
 }
 
 .btn-postulante:hover {
   color: #0d47a1;
+  text-decoration: underline;   /* opcional: si querés que SOLO en hover subraye */
 }

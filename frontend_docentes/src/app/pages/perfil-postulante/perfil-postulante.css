@@ -41,3 +41,22 @@
   display: block;
   margin: 1.2rem auto 0 auto;
 }
+
+.btn-cerrar {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+  margin-top: 1.3rem;
+  text-align: center;
+}
+
+.btn-cerrar:hover {
+  background: #357ABD;
+  transform: scale(1.03);
+}
