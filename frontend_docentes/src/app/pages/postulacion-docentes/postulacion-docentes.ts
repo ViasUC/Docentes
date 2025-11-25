@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { HistorialPostulacionesComponent } from "../historial-postulaciones/historial-postulaciones";
 
 @Component({
   selector: 'app-postulaciones-docente',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, HistorialPostulacionesComponent],
   templateUrl: './postulacion-docentes.html',
   styleUrls: ['./postulacion-docentes.css']
 })
@@ -21,11 +22,15 @@ export class PostulacionesDocenteComponent implements OnInit {
   postulacionesOriginal: any[] = [];
 
   estadoFiltro: string = 'PENDIENTE';
-  oportunidadFiltro: string = '';  // Filtro por oportunidad
-  hayPendientes: boolean = true;   // ← NUEVO: controla columna
+  oportunidadFiltro: string = '';
+  hayPendientes: boolean = true;
 
-  oportunidades: any[] = []; // Oportunidades disponibles
+  oportunidades: any[] = [];
   oportunidadesOriginal: any[] = [];
+
+  // === 🔥 MODAL HISTORIAL ===
+  historialVisible: boolean = false;
+  postulacionSeleccionada: any = null;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -46,7 +51,6 @@ export class PostulacionesDocenteComponent implements OnInit {
     this.cargarPostulacionesDocente();
   }
 
-  // Función para cargar las oportunidades del docente
   cargarOportunidadesDocente() {
     const queryOps = `
       query {
@@ -59,9 +63,8 @@ export class PostulacionesDocenteComponent implements OnInit {
 
     this.http.post('/graphql', { query: queryOps }).subscribe({
       next: (res: any) => {
-        console.log("Oportunidades cargadas:", res.data?.oportunidadesPorCreador);  // Depuración de oportunidades cargadas
         this.oportunidades = res.data?.oportunidadesPorCreador ?? [];
-        this.oportunidadesOriginal = [...this.oportunidades];  // Guarda la lista original de oportunidades
+        this.oportunidadesOriginal = [...this.oportunidades];
       },
       error: (err) => {
         console.error(err);
@@ -84,7 +87,6 @@ export class PostulacionesDocenteComponent implements OnInit {
     this.http.post('/graphql', { query: queryOps }).subscribe({
       next: (res: any) => {
         const oportunidades = res.data?.oportunidadesPorCreador ?? [];
-        console.log("Oportunidades recibidas para postulaciones:", oportunidades);  // Verifica que las oportunidades estén correctamente recibidas
 
         if (oportunidades.length === 0) {
           this.postulaciones = [];
@@ -115,7 +117,6 @@ export class PostulacionesDocenteComponent implements OnInit {
           `;
 
           this.http.post('/graphql', { query: queryPosts }).subscribe((resp: any) => {
-            console.log("Postulaciones para oportunidad " + op.titulo, resp.data?.postulacionesPage?.items);  // Verifica las postulaciones recibidas para cada oportunidad
             acumulado.push(...(resp.data?.postulacionesPage?.items ?? []));
             pendientes--;
 
@@ -135,58 +136,35 @@ export class PostulacionesDocenteComponent implements OnInit {
     });
   }
 
-  // FILTRO
   filtrarPorEstado(estado: string) {
-    console.log("Filtro por estado activado:", estado);  // Depuración
     this.estadoFiltro = estado;
     this.aplicarFiltro();
   }
 
   filtrarPorOportunidad(oportunidadId: string) {
-    console.log("Filtro por oportunidad activado con ID:", oportunidadId);  // Depuración
     this.oportunidadFiltro = oportunidadId;
     this.aplicarFiltro();
   }
 
   aplicarFiltro() {
-    console.log("Aplicando filtro: Estado:", this.estadoFiltro, "Oportunidad:", this.oportunidadFiltro);
-
     let postulacionesFiltradas = [...this.postulacionesOriginal];
 
-    // Filtro por estado (si está definido)
     if (this.estadoFiltro) {
       postulacionesFiltradas = postulacionesFiltradas.filter(p => p.estado === this.estadoFiltro);
     }
 
-    // Filtro por oportunidad (si está definido)
     if (this.oportunidadFiltro) {
-      console.log("Filtrando por oportunidad ID:", this.oportunidadFiltro);  // Verificar ID de oportunidad
       postulacionesFiltradas = postulacionesFiltradas.filter(p => {
-        // Asegúrate de que `oportunidad` esté presente en la postulación
-        if (!p.oportunidad) {
-          console.error("Oportunidad no definida para la postulación:", p);  // Esto debería ser raro
-        }
-
-        // Verificar y comparar correctamente el `idOportunidad`
-        const oportunidadId = p.oportunidad ? p.oportunidad.idOportunidad : null;  // Acceder correctamente a idOportunidad
-        console.log("Comparando con idOportunidad:", oportunidadId);  // Verificar el valor antes de la comparación
-
-        // Comparar idOportunidad
+        const oportunidadId = p.oportunidad ? p.oportunidad.idOportunidad : null;
         return oportunidadId === this.oportunidadFiltro;
       });
-
-      console.log("Postulaciones filtradas por oportunidad:", postulacionesFiltradas);  // Verifica las postulaciones filtradas
     }
 
-    // Asignar las postulaciones filtradas
     this.postulaciones = postulacionesFiltradas;
-    console.log("Postulaciones después del filtro:", this.postulaciones);  // Verifica las postulaciones finales
 
-    // Mostrar columna de acciones solo si el estado filtrado es PENDIENTE
     this.hayPendientes = (this.estadoFiltro === 'PENDIENTE');
   }
 
-  // RECHAZAR CON MOTIVO
   rechazarConMotivo(p: any) {
     const motivo = prompt("Motivo del rechazo:");
 
@@ -198,7 +176,6 @@ export class PostulacionesDocenteComponent implements OnInit {
     this.cambiarEstado(p, 'RECHAZADA', motivo);
   }
 
-  // MUTACIÓN
   cambiarEstado(p: any, nuevoEstado: string, motivo?: string) {
     const motivoFinal =
       motivo ?? (nuevoEstado === 'RECHAZADA'
@@ -230,6 +207,17 @@ export class PostulacionesDocenteComponent implements OnInit {
         alert("Error al actualizar el estado");
       }
     });
+  }
+
+  // === 🔥 MODAL HISTORIAL ===
+  abrirHistorial(p: any) {
+    this.postulacionSeleccionada = p;
+    this.historialVisible = true;
+  }
+
+  cerrarHistorial() {
+    this.historialVisible = false;
+    this.postulacionSeleccionada = null;
   }
 
   logout(): void {

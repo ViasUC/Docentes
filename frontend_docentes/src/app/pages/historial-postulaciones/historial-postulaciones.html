@@ -1,0 +1,33 @@
+<div class="modal" *ngIf="visible">
+  <div class="modal-content">
+
+    <h2>Historial de la Postulación</h2>
+
+    <div *ngIf="loading" class="loading">Cargando...</div>
+
+    <table *ngIf="!loading && historial.length > 0">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Estado Anterior</th>
+          <th>Estado Nuevo</th>
+          <th>Motivo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of historial">
+          <td>{{ h.fechaCambio | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ h.estadoAnterior }}</td>
+          <td>{{ h.estadoNuevo }}</td>
+          <td>{{ h.motivo }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!loading && historial.length === 0" class="empty">
+      No hay historial registrado.
+    </p>
+
+    <button class="btn-cerrar" (click)="cerrar.emit()">Cerrar</button>
+  </div>
+</div>

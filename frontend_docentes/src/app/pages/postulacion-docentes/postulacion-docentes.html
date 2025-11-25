@@ -36,33 +36,62 @@
   <div *ngIf="error" class="error">Error cargando postulaciones</div>
 
  <!-- CABECERA -->
-  <div class="table-head" [ngClass]="{ 'acciones-activo': hayPendientes }">
-    <span>Oportunidad</span>
-    <span>Postulante</span>
-    <span>Estado</span>
-    <span>Fecha</span>
-    <span *ngIf="hayPendientes">Acciones</span>
+<div class="table-head" [ngClass]="{ 'sin-acciones': !hayPendientes }">
+  <span>Oportunidad</span>
+  <span>Postulante</span>
+  <span>Estado</span>
+  <span>Historial</span>
+  <span>Fecha</span>
+  <span *ngIf="hayPendientes">Acciones</span>
+</div>
+
+<!-- FILAS -->
+<div *ngFor="let p of postulaciones"
+     class="row"
+     [ngClass]="{ 'sin-acciones': p.estado !== 'PENDIENTE' }">
+
+  <!-- Oportunidad -->
+  <div>{{ p.oportunidad.titulo }}</div>
+
+  <!-- Postulante -->
+  <div>{{ p.postulante.nombre }} {{ p.postulante.apellido }}</div>
+
+  <!-- Estado -->
+  <div class="estado" [ngClass]="p.estado.toLowerCase()">
+    {{ p.estado }}
   </div>
 
-  <!-- FILAS -->
-  <div *ngFor="let p of postulaciones"
-      class="row"
-      [ngClass]="{ 'acciones-activo': p.estado === 'PENDIENTE' }">
-
-    <div>{{ p.oportunidad.titulo }}</div>
-    <div>{{ p.postulante.nombre }} {{ p.postulante.apellido }}</div>
-    <div class="estado" [ngClass]="p.estado.toLowerCase()">{{ p.estado }}</div>
-    <div>{{ p.fechaPostulacion | date:'yyyy-MM-dd' }}</div>
-
-    <!-- Acción solo si está pendiente -->
-    <div *ngIf="p.estado === 'PENDIENTE'" class="acciones">
-        <button class="btn-aceptar" (click)="cambiarEstado(p, 'ACEPTADA')">Aceptar</button>
-        <button class="btn-rechazar" (click)="rechazarConMotivo(p)">Rechazar</button>
-    </div>
-
+  <!-- Historial -->
+  <div>
+    <button class="btn-historial" (click)="abrirHistorial(p)">
+      Ver Historial
+    </button>
   </div>
 
-  <div *ngIf="!loading && postulaciones.length === 0" class="loading">
-    No hay postulaciones aún.
+  <!-- Fecha -->
+  <div>{{ p.fechaPostulacion | date:'yyyy-MM-dd' }}</div>
+
+  <!-- Acciones (solo si está pendiente) -->
+  <div *ngIf="p.estado === 'PENDIENTE'" class="acciones">
+      <button class="btn-aceptar" (click)="cambiarEstado(p, 'ACEPTADA')">
+        Aceptar
+      </button>
+      <button class="btn-rechazar" (click)="rechazarConMotivo(p)">
+        Rechazar
+      </button>
   </div>
+
+</div>
+
+<!-- MENSAJE SIN DATOS -->
+<div *ngIf="!loading && postulaciones.length === 0" class="loading">
+  No hay postulaciones aún.
+</div>
+
 </section>
+
+<app-historial-postulacion
+  [visible]="historialVisible"
+  [postulacion]="postulacionSeleccionada"
+  (cerrar)="cerrarHistorial()">
+</app-historial-postulacion>

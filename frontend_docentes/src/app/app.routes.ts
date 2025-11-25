@@ -47,6 +47,12 @@ export const routes: Routes = [
     component: MiPerfilComponent,  // Componente que mostrará el perfil
     canActivate: [authGuard]  // Si es necesario, puedes agregar un guard para asegurarte de que el usuario esté autenticado
   },
+  {
+  path: 'historial/:id',
+  loadComponent: () =>
+    import('./pages/historial-postulaciones/historial-postulaciones')
+      .then(m => m.HistorialPostulacionesComponent)
+},
 
 ];
 
