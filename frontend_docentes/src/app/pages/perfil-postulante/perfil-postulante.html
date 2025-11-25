@@ -1,0 +1,15 @@
+<section *ngIf="visible" class="modal">
+  <div class="modal-content">
+    <h2>Perfil del Postulante</h2>
+
+    <div *ngIf="loading">Cargando perfil...</div>
+    <div *ngIf="!loading && perfil">
+      <p><strong>Nombre:</strong> {{ perfil.nombre }} {{ perfil.apellido }}</p>
+      <p><strong>Email:</strong> {{ perfil.email }}</p>
+      <p><strong>Carrera:</strong> {{ perfil.carrera }}</p>
+      <p><strong>Semestre:</strong> {{ perfil.semestre }}</p>
+    </div>
+
+    <button (click)="cerrar.emit()">Cerrar</button>
+  </div>
+</section>

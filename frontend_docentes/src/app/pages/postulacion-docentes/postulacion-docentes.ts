@@ -2,12 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 import { HistorialPostulacionesComponent } from "../historial-postulaciones/historial-postulaciones";
+import { PerfilPostulanteComponent } from "../perfil-postulante/perfil-postulante";
 
 @Component({
   selector: 'app-postulaciones-docente',
   standalone: true,
-  imports: [CommonModule, RouterLink, HistorialPostulacionesComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    HistorialPostulacionesComponent,
+    PerfilPostulanteComponent
+  ],
   templateUrl: './postulacion-docentes.html',
   styleUrls: ['./postulacion-docentes.css']
 })
@@ -32,6 +39,10 @@ export class PostulacionesDocenteComponent implements OnInit {
   historialVisible: boolean = false;
   postulacionSeleccionada: any = null;
 
+  // === 🔥 MODAL PERFIL POSTULANTE ===
+  perfilVisible: boolean = false;
+  perfilData: any = null;
+
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -44,13 +55,17 @@ export class PostulacionesDocenteComponent implements OnInit {
           ? 'Inv.'
           : '';
 
-      this.nombreCompleto = `${rol} ${this.usuario.nombre} ${this.usuario.apellido}`;
+      this.nombreCompleto =
+        `${rol} ${this.usuario.nombre} ${this.usuario.apellido}`;
     }
 
     this.cargarOportunidadesDocente();
     this.cargarPostulacionesDocente();
   }
 
+  // ============================================
+  // 🔵 CARGAR OPORTUNIDADES
+  // ============================================
   cargarOportunidadesDocente() {
     const queryOps = `
       query {
@@ -74,6 +89,9 @@ export class PostulacionesDocenteComponent implements OnInit {
     });
   }
 
+  // ============================================
+  // 🔵 CARGAR POSTULACIONES
+  // ============================================
   cargarPostulacionesDocente() {
     const queryOps = `
       query {
@@ -109,7 +127,7 @@ export class PostulacionesDocenteComponent implements OnInit {
                   idPostulacion
                   estado
                   fechaPostulacion
-                  postulante { nombre apellido }
+                  postulante { idUsuario nombre apellido email }
                   oportunidad { titulo idOportunidad }
                 }
               }
@@ -136,6 +154,9 @@ export class PostulacionesDocenteComponent implements OnInit {
     });
   }
 
+  // ============================================
+  // 🔵 FILTROS
+  // ============================================
   filtrarPorEstado(estado: string) {
     this.estadoFiltro = estado;
     this.aplicarFiltro();
@@ -147,24 +168,26 @@ export class PostulacionesDocenteComponent implements OnInit {
   }
 
   aplicarFiltro() {
-    let postulacionesFiltradas = [...this.postulacionesOriginal];
+    let filtradas = [...this.postulacionesOriginal];
 
     if (this.estadoFiltro) {
-      postulacionesFiltradas = postulacionesFiltradas.filter(p => p.estado === this.estadoFiltro);
+      filtradas = filtradas.filter(p => p.estado === this.estadoFiltro);
     }
 
     if (this.oportunidadFiltro) {
-      postulacionesFiltradas = postulacionesFiltradas.filter(p => {
-        const oportunidadId = p.oportunidad ? p.oportunidad.idOportunidad : null;
-        return oportunidadId === this.oportunidadFiltro;
-      });
+      filtradas = filtradas.filter(p =>
+        p.oportunidad?.idOportunidad === this.oportunidadFiltro
+      );
     }
 
-    this.postulaciones = postulacionesFiltradas;
+    this.postulaciones = filtradas;
 
     this.hayPendientes = (this.estadoFiltro === 'PENDIENTE');
   }
 
+  // ============================================
+  // 🔴 CAMBIAR ESTADO
+  // ============================================
   rechazarConMotivo(p: any) {
     const motivo = prompt("Motivo del rechazo:");
 
@@ -178,7 +201,8 @@ export class PostulacionesDocenteComponent implements OnInit {
 
   cambiarEstado(p: any, nuevoEstado: string, motivo?: string) {
     const motivoFinal =
-      motivo ?? (nuevoEstado === 'RECHAZADA'
+      motivo ??
+      (nuevoEstado === 'RECHAZADA'
         ? 'Rechazado por el docente'
         : 'Aceptado por el docente');
 
@@ -209,7 +233,9 @@ export class PostulacionesDocenteComponent implements OnInit {
     });
   }
 
-  // === 🔥 MODAL HISTORIAL ===
+  // ============================================
+  // 🟣 MODAL HISTORIAL
+  // ============================================
   abrirHistorial(p: any) {
     this.postulacionSeleccionada = p;
     this.historialVisible = true;
@@ -220,6 +246,23 @@ export class PostulacionesDocenteComponent implements OnInit {
     this.postulacionSeleccionada = null;
   }
 
+  // ============================================
+  // 🟢 MODAL PERFIL POSTULANTE
+  // ============================================
+  abrirPerfil(postulante: any) {
+    console.log("POSTULANTE ENVIADO AL MODAL:", postulante);
+    this.perfilData = postulante; // ← GUARDAMOS LOS DATOS DEL POSTULANTE
+    this.perfilVisible = true;
+  }
+
+  cerrarPerfil() {
+    this.perfilVisible = false;
+    this.perfilData = null;
+  }
+
+  // ============================================
+  // 🔵 LOGOUT
+  // ============================================
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('usuario');

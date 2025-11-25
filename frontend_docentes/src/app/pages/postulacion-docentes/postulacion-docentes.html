@@ -54,7 +54,12 @@
   <div>{{ p.oportunidad.titulo }}</div>
 
   <!-- Postulante -->
-  <div>{{ p.postulante.nombre }} {{ p.postulante.apellido }}</div>
+  <div>
+  <button class="btn-postulante" (click)="abrirPerfil(p)">
+    {{ p.postulante.nombre }} {{ p.postulante.apellido }}
+  </button>
+</div>
+
 
   <!-- Estado -->
   <div class="estado" [ngClass]="p.estado.toLowerCase()">
@@ -95,3 +100,9 @@
   [postulacion]="postulacionSeleccionada"
   (cerrar)="cerrarHistorial()">
 </app-historial-postulacion>
+
+<app-perfil-postulante
+  [visible]="perfilVisible"
+  [idUsuario]="perfilData?.idUsuario"
+  (cerrar)="cerrarPerfil()">
+</app-perfil-postulante>
